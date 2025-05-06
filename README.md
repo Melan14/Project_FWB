@@ -14,18 +14,18 @@
 
 Role dan Fitur-Fiturnya
 1. Admin
-Mengelola data user (Vendor & Foodie)
-Verifikasi tempat kuliner
+Mengelola data user (Vendor & Foodie),
+Verifikasi tempat kuliner,
 Mengelola data review (moderasi)
 
 2. Vendor (Pemilik Warung atau Restoran)
-Mendaftarkan tempat kuliner
-Mengelola informasi tempat kuliner miliknya
+Mendaftarkan tempat kuliner,
+Mengelola informasi tempat kuliner miliknya,
 Melihat ulasan dari Foodie
 
 4. Foodie
-Melihat daftar tempat kuliner
-Memberikan review dan rating
+Melihat daftar tempat kuliner,
+Memberikan review dan rating,
 Menyimpan tempat favorit
 
 Tabel-tabel Database Beserta Field dan Tipe Datanya
@@ -77,8 +77,8 @@ Tabel-tabel Database Beserta Field dan Tipe Datanya
 
 Jenis Relasi dan Tabel yang Berelasi
 Relasi	Jenis Relasi
-roles → user	One to Many (1:M)
-user → spot_kuliner	One to Many (1:M)
-kategori → spot_kuliner	One to Many (1:M)
-spot_kuliner → review	One to Many (1:M)
+roles → user	One to Many (1:M),
+user → spot_kuliner	One to Many (1:M),
+kategori → spot_kuliner	One to Many (1:M),
+spot_kuliner → review	One to Many (1:M),
 user → review	One to Many (1:M)
