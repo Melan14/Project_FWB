@@ -29,43 +29,50 @@ Memberikan review dan rating
 Menyimpan tempat favorit
 
 Tabel-tabel Database Beserta Field dan Tipe Datanya
-Tabel roles
-Kolom |Tipe Data  |	Keterangan
-id	  | INT	      |  Primary Key
-nama_role |VARCHAR|	Admin / Penjual / Pembeli
+### Tabel roles
+| Kolom       | Tipe Data | Keterangan                            |
+|-------------|-----------|----------------------------------------|
+| id          | int       | Primary Key, auto increment            |
+| nama_role   | varchar   | admin / penjual / pembeli              |
 
-Tabel user
-Kolom   |Tipe Data	|Keterangan
-id	    | INT	    |Primary Key
-nama	| VARCHAR	|Nama Lengkap
-password| VARCHAR	|Password login
-email   | VARCHAR	|Email Pengguna
-id_role	| INT	    |Foreign Key ke tabel roles
-created_at	| DATETIME	| Tanggal Pendaftaran
+### Tabel kategori
+| Kolom       | Tipe Data | Keterangan                            |
+|-------------|-----------|----------------------------------------|
+| id          | int       | Primary Key, auto increment            |
+| nama        | varchar   | Nama lengkap pengguna                  |
+| email       | varchar   | Unik, digunakan untuk login            |
+| password    | varchar   | Password terenkripsi                   |
+| id_role     | varchar   | foreign key ke roles                   |
+| created_at  | TIMESTAMP | Waktu pendaftaran                      |
 
-Tabel kategori
-Kolom	| Tipe Data	| Keterangan
-id	    | INT	    | Primary Key
-nama_kategori | VARCHAR	| Nama Kategori Makanan
+### Tabel kategori
 
-Tabel spot_kuliner
-Kolom	|Tipe Data	|Keterangan
-id	    |INT	    |Primary Key
-id_user	|INT	    |Foreign Key ke tabel user (Vendor)
-id_kategori	|INT	|Foreign Key ke tabel kategori
-nama	|VARCHAR	|Nama Tempat
-deskripsi |TEXT	    |Deskripsi Tempat Kuliner
-lokasi	|VARCHAR	|Alamat / Lokasi
-status	|ENUM	    |Status Verifikasi
+| Kolom        | Tipe Data | Keterangan                                 |
+|--------------|-----------|--------------------------------------------|
+| id           | int       | Primary Key, auto increment                |
+| nama_kategori| varchar   | Nama kategori makanan                      |
 
-Tabel review
-Kolom	|Tipe Data	|Keterangan
-id	    |INT	    |Primary Key
-id_spot	|INT	    |Foreign Key ke tabel spot_kuliner
-id_user	|INT	    |Foreign Key ke tabel user (Foodie)
-rating	|INT	    |Rating 1–5
-komentar|TEXT    	|Isi Ulasan
-tanggal	|DATETIME	|Tanggal Ulasan Dibuat
+### Tabel Spot kuliner
+| Kolom       | Tipe Data | Keterangan                             |
+|-------------|-----------|----------------------------------------|
+| id          | int       | Primary Key, auto increment            |
+| id_user     | int       | Foreign Key ke User (Penjual)          |
+| id_kategori | int       | Foreign Key ke Kategori                |
+| Nama        | varchar   | Nama Tempat                            |
+| Deskripsi   | varchar   | Deskripsi Tempat Kuliner               |
+| Lokasi      | varchar   | alamat / lokasi                        |
+| Status      | enum      | tanggal pendaftaran                    |
+
+### Tabel review
+| Kolom       | Tipe Data | Keterangan                             |
+|-------------|-----------|----------------------------------------|
+| id          | int       | Primary Key, auto increment            |
+| id_spot     | int       | Foreign Key ke Spot_kuliner            |
+| id_user     | int       | Foreign Key ke User                    |
+| Rating      | int       | Rating 1-5                             |
+| Komentar    | text      | Isi Ulasan                             |
+| Tanggal     | timestamp | alamat / Tanggal Ulasan di Buat        |
+
 
 Jenis Relasi dan Tabel yang Berelasi
 Relasi	Jenis Relasi
