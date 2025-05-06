@@ -71,7 +71,8 @@ Tabel-tabel Database Beserta Field dan Tipe Datanya
 | id_user     | int       | Foreign Key ke User                    |
 | Rating      | int       | Rating 1-5                             |
 | Komentar    | text      | Isi Ulasan                             |
-| Tanggal     | timestamp | alamat / Tanggal Ulasan di Buat        |
+| Tanggal     | timestamp |Tanggal Ulasan di Buat                  |
+
 
 
 Jenis Relasi dan Tabel yang Berelasi
