@@ -61,7 +61,7 @@ Tabel-tabel Database Beserta Field dan Tipe Datanya
 | Nama        | varchar   | Nama Tempat                            |
 | Deskripsi   | varchar   | Deskripsi Tempat Kuliner               |
 | Lokasi      | varchar   | alamat / lokasi                        |
-| Status      | enum      | tanggal pendaftaran                    |
+| Status      | enum      | Status verifikasi admin                |
 
 ### Tabel review
 | Kolom       | Tipe Data | Keterangan                             |
