@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('Spot_kuliner', function (Blueprint $table) {
             $table->id();
             $table->integer('id_spot')->id();
-            $table->foreignId('id_user')->constrained('User')->onDelete('cascade');
-            $table->foreignId('id_kategori')->constrained('Kategori')->onDelete('cascade');
+            $table->foreignId('id_user')->constrained('Users')->onDelete('cascade');
             $table->string('Nama');
-            $table->String('Deskripsi');
+            $table->text('Deskripsi')->nullable();
             $table->String('Lokasi');
             $table->enum('Status', ['buka','tutup']);
+            $table->timestamps();
         });
     }
 

@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Review', function (Blueprint $table) {
-            $table->id();
-            $table->integer('id_review')->id();
-            $table->integer('id_spot')->constrained('Spot_kuliner')->onDelete('cascade');
+        Schema::create('Favorites', function (Blueprint $table){
             $table->foreignId('id_user')->constrained('Users')->onDelete('cascade');
-            $table->integerunsignedTinyInteger('Rating');
-            $table->text('Komentar')->nullable;
-            $table->timestamps();
+            $table->foreignId('id_spot')->constrained('Spot_kuliners')->onDelete('cascade');
+            $table->timestamp('created_at')->useCurrent();
+
+            $table->primary(['id_user', 'id_spot']);
         });
-    }
+
+        }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('Review');
+       Schema::dropIfExists('Favorites'); 
     }
 };
