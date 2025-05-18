@@ -11,74 +11,106 @@
     <strong>2025</strong> 
 </p>
 
+## 🎭 Role & Fitur
 
-Role dan Fitur-Fiturnya
-1. Admin
-Mengelola data user (Vendor & Foodie),
-Verifikasi tempat kuliner,
-Mengelola data review (moderasi)
+### 1. Admin
+- Melihat daftar akun user
+- Menghapus akun vendor atau foodie
+- Menghapus review
 
-2. Vendor (Pemilik Warung atau Restoran)
-Mendaftarkan tempat kuliner,
-Mengelola informasi tempat kuliner miliknya,
-Melihat ulasan dari Foodie
+### 2. Vendor (Pemilik Warung / Restoran)
+- Mendaftarkan tempat kuliner
+- Mengelola informasi tempat kuliner
+- Melihat ulasan dari foodie
 
-4. Foodie
-Melihat daftar tempat kuliner,
-Memberikan review dan rating,
-Menyimpan tempat favorit
+### 3. Foodie
+- Melihat daftar tempat kuliner
+- Memberikan review dan rating
+- Menyimpan tempat favorit
 
-Tabel-tabel Database Beserta Field dan Tipe Datanya
-### Tabel roles
-| Kolom       | Tipe Data | Keterangan                            |
-|-------------|-----------|----------------------------------------|
-| id          | int       | Primary Key, auto increment            |
-| nama_role   | varchar   | admin / penjual / pembeli              |
+---
 
-### Tabel kategori
-| Kolom       | Tipe Data | Keterangan                            |
-|-------------|-----------|----------------------------------------|
-| id          | int       | Primary Key, auto increment            |
-| nama        | varchar   | Nama lengkap pengguna                  |
-| email       | varchar   | Unik, digunakan untuk login            |
-| password    | varchar   | Password terenkripsi                   |
-| id_role     | varchar   | foreign key ke roles                   |
-| created_at  | TIMESTAMP | Waktu pendaftaran                      |
+## 🗃️ Struktur Tabel Database
 
-### Tabel kategori
+### 1. `Users`
+Data seluruh pengguna sistem.
 
-| Kolom        | Tipe Data | Keterangan                                 |
-|--------------|-----------|--------------------------------------------|
-| id           | int       | Primary Key, auto increment                |
-| nama_kategori| varchar   | Nama kategori makanan                      |
+| Field       | Tipe Data | Keterangan                     |
+|-------------|-----------|---------------------------------|
+| id          | INT       | Primary Key                    |
+| nama        | VARCHAR   | Nama lengkap                   |
+| email       | VARCHAR   | Email login                    |
+| password    | VARCHAR   | Password login                 |
+| role        | ENUM      | 'admin', 'vendor', 'foodie'    |
+| created_at  | TIMESTAMP | Tanggal dibuat                 |
+| updated_at  | TIMESTAMP | Tanggal diubah                 |
 
-### Tabel Spot kuliner
-| Kolom       | Tipe Data | Keterangan                             |
-|-------------|-----------|----------------------------------------|
-| id          | int       | Primary Key, auto increment            |
-| id_user     | int       | Foreign Key ke User (Penjual)          |
-| id_kategori | int       | Foreign Key ke Kategori                |
-| Nama        | varchar   | Nama Tempat                            |
-| Deskripsi   | varchar   | Deskripsi Tempat Kuliner               |
-| Lokasi      | varchar   | alamat / lokasi                        |
-| Status      | enum      | Status verifikasi admin                |
+---
 
-### Tabel review
-| Kolom       | Tipe Data | Keterangan                             |
-|-------------|-----------|----------------------------------------|
-| id          | int       | Primary Key, auto increment            |
-| id_spot     | int       | Foreign Key ke Spot_kuliner            |
-| id_user     | int       | Foreign Key ke User                    |
-| Rating      | int       | Rating 1-5                             |
-| Komentar    | text      | Isi Ulasan                             |
-| Tanggal     | timestamp |Tanggal Ulasan di Buat                  |
+### 2. `User_Profile`
+Profil tambahan pengguna (relasi 1–1 ke Users).
 
+| Field       | Tipe Data | Keterangan                           |
+|-------------|-----------|---------------------------------------|
+| id          | INT       | Primary Key                          |
+| user_id     | INT       | Foreign Key → Users(id), UNIQUE      |
+| foto        | VARCHAR   | Path foto profil                     |
+| bio         | TEXT      | Ringkasan pengguna                   |
+| deskripsi   | TEXT      | Deskripsi lengkap pengguna           |
+| created_at  | TIMESTAMP | Tanggal dibuat                       |
+| updated_at  | TIMESTAMP | Tanggal diubah                       |
 
+---
 
-Jenis Relasi dan Tabel yang Berelasi
-Relasi	Jenis Relasi
-roles → user	One to Many (1:M),
-user → spot_kuliner	One to Many (1:M),
-kategori → spot_kuliner	One to Many (1:M),
-spot_kuliner → review	One to Many (1:M),
-user → review	One to Many (1:M)
+### 3. `Spot_kuliner`
+Tempat kuliner yang didaftarkan oleh vendor.
+
+| Field       | Tipe Data | Keterangan                                 |
+|-------------|-----------|---------------------------------------------|
+| id          | INT       | Primary Key                                |
+| id_user     | INT       | Foreign Key → Users(id) (vendor)           |
+| nama        | VARCHAR   | Nama tempat kuliner                        |
+| deskripsi   | TEXT      | Deskripsi tempat kuliner                   |
+| lokasi      | VARCHAR   | Alamat tempat kuliner                      |
+| status      | ENUM      | 'pending', 'approved', 'rejected'          |
+| created_at  | TIMESTAMP | Tanggal dibuat                             |
+| updated_at  | TIMESTAMP | Tanggal diubah                             |
+
+---
+
+### 4. `Review`
+Ulasan dari foodie terhadap tempat kuliner.
+
+| Field       | Tipe Data | Keterangan                          |
+|-------------|-----------|--------------------------------------|
+| id          | INT       | Primary Key                         |
+| id_user     | INT       | Foreign Key → Users(id) (foodie)    |
+| id_spot     | INT       | Foreign Key → Spot_kuliner(id)      |
+| rating      | INT       | Skala 1–5                           |
+| komentar    | TEXT      | Isi ulasan                          |
+| created_at  | TIMESTAMP | Tanggal dibuat                      |
+| updated_at  | TIMESTAMP | Tanggal diubah                      |
+
+---
+
+### 5. `Favorite`
+Daftar tempat kuliner favorit milik foodie (relasi Many-to-Many).
+
+| Field       | Tipe Data | Keterangan                          |
+|-------------|-----------|--------------------------------------|
+| user_id     | INT       | Foreign Key → Users(id) (foodie)    |
+| spot_id     | INT       | Foreign Key → Spot_kuliner(id)      |
+| created_at  | TIMESTAMP | Tanggal ditambahkan ke favorit      |
+**Primary Key**: `(user_id, spot_id)`
+
+---
+
+## 🔗 Relasi Antar Tabel
+
+| Relasi                        | Jenis Relasi   |
+|-------------------------------|----------------|
+| Users → User_Profile          | One-to-One     |
+| Users (vendor) → Spot_kuliner | One-to-Many    |
+| Users (foodie) → Review       | One-to-Many    |
+| Spot_kuliner → Review         | One-to-Many    |
+| Users (foodie) ↔ Spot_kuliner (Favorite) | Many-to-Many |
