@@ -53,7 +53,7 @@ Profil tambahan pengguna (relasi 1–1 ke Users).
 | Field       | Tipe Data | Keterangan                           |
 |-------------|-----------|---------------------------------------|
 | id          | INT       | Primary Key                          |
-| user_id     | INT       | Foreign Key → Users(id), UNIQUE      |
+| id_user     | INT       | Foreign Key → Users(id), UNIQUE      |
 | foto        | VARCHAR   | Path foto profil                     |
 | bio         | TEXT      | Ringkasan pengguna                   |
 | deskripsi   | TEXT      | Deskripsi lengkap pengguna           |
@@ -98,8 +98,8 @@ Daftar tempat kuliner favorit milik foodie (relasi Many-to-Many).
 
 | Field       | Tipe Data | Keterangan                          |
 |-------------|-----------|--------------------------------------|
-| user_id     | INT       | Foreign Key → Users(id) (foodie)    |
-| spot_id     | INT       | Foreign Key → Spot_kuliner(id)      |
+| id_user    | INT       | Foreign Key → Users(id) (foodie)    |
+| id_spot     | INT       | Foreign Key → Spot_kuliner(id)      |
 | created_at  | TIMESTAMP | Tanggal ditambahkan ke favorit      |
 **Primary Key**: `(user_id, spot_id)`
 
