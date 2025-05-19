@@ -38,7 +38,7 @@ Data seluruh pengguna sistem.
 | Field       | Tipe Data | Keterangan                     |
 |-------------|-----------|---------------------------------|
 | id          | INT       | Primary Key                    |
-| nama        | VARCHAR   | Nama lengkap                   |
+| name        | VARCHAR   | Nama lengkap                   |
 | email       | VARCHAR   | Email login                    |
 | password    | VARCHAR   | Password login                 |
 | role        | ENUM      | 'admin', 'vendor', 'foodie'    |
@@ -53,7 +53,7 @@ Profil tambahan pengguna (relasi 1–1 ke Users).
 | Field       | Tipe Data | Keterangan                           |
 |-------------|-----------|---------------------------------------|
 | id          | INT       | Primary Key                          |
-| id_user     | INT       | Foreign Key → Users(id), UNIQUE      |
+| user_id     | INT       | Foreign Key → Users(id), UNIQUE      |
 | foto        | VARCHAR   | Path foto profil                     |
 | bio         | TEXT      | Ringkasan pengguna                   |
 | deskripsi   | TEXT      | Deskripsi lengkap pengguna           |
@@ -68,8 +68,8 @@ Tempat kuliner yang didaftarkan oleh vendor.
 | Field       | Tipe Data | Keterangan                                 |
 |-------------|-----------|---------------------------------------------|
 | id          | INT       | Primary Key                                |
-| id_user     | INT       | Foreign Key → Users(id) (vendor)           |
-| nama        | VARCHAR   | Nama tempat kuliner                        |
+| user_id     | INT       | Foreign Key → Users(id) (vendor)           |
+| name        | VARCHAR   | Nama tempat kuliner                        |
 | deskripsi   | TEXT      | Deskripsi tempat kuliner                   |
 | lokasi      | VARCHAR   | Alamat tempat kuliner                      |
 | status      | ENUM      | 'pending', 'approved', 'rejected'          |
@@ -84,8 +84,8 @@ Ulasan dari foodie terhadap tempat kuliner.
 | Field       | Tipe Data | Keterangan                          |
 |-------------|-----------|--------------------------------------|
 | id          | INT       | Primary Key                         |
-| id_user     | INT       | Foreign Key → Users(id) (foodie)    |
-| id_spot     | INT       | Foreign Key → Spot_kuliner(id)      |
+| user_id     | INT       | Foreign Key → Users(id) (foodie)    |
+| spot_id     | INT       | Foreign Key → Spot_kuliner(id)      |
 | rating      | INT       | Skala 1–5                           |
 | komentar    | TEXT      | Isi ulasan                          |
 | created_at  | TIMESTAMP | Tanggal dibuat                      |
@@ -98,8 +98,8 @@ Daftar tempat kuliner favorit milik foodie (relasi Many-to-Many).
 
 | Field       | Tipe Data | Keterangan                          |
 |-------------|-----------|--------------------------------------|
-| id_user    | INT       | Foreign Key → Users(id) (foodie)    |
-| id_spot     | INT       | Foreign Key → Spot_kuliner(id)      |
+| user_id     | INT       | Foreign Key → Users(id) (foodie)    |
+| spot_id     | INT       | Foreign Key → Spot_kuliner(id)      |
 | created_at  | TIMESTAMP | Tanggal ditambahkan ke favorit      |
 **Primary Key**: `(user_id, spot_id)`
 
