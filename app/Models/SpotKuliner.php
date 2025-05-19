@@ -12,7 +12,7 @@ class SpotKuliner extends Model
 
     public function vendor()
     {
-        return $this->belongsTo(Users::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function reviews()
@@ -22,7 +22,7 @@ class SpotKuliner extends Model
 
     public function favoriters()
     {
-        return $this->belongsToMany(Users::class, 'favorites', 'spot_id', 'user_id')
+        return $this->belongsToMany(User::class, 'favorites', 'spot_id', 'user_id')
                     ->withTimestamps();
     }
 }

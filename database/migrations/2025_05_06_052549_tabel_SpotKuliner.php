@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('SpotKuliner', function (Blueprint $table) {
             $table->id();
-            $table->integer('spot_id')->id();
             $table->foreignId('user_id')->constrained('Users')->onDelete('cascade');
             $table->string('nama');
             $table->text('deskripsi')->nullable();

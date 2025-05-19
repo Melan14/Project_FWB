@@ -8,6 +8,6 @@ class Favorites extends Pivot
 {
   
     protected $fillable = [
-        'id_user', 'id_spot',
+        'user_id', 'spot_id',
     ];
 }

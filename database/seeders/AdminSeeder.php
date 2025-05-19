@@ -16,10 +16,11 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
          DB::table('Users')->insert([
-            'nama'       => 'Admin Culinary',
-            'email'      => 'admin@culinary.local',
-            'password'   => Hash::make('admin123'), // pastikan password dienkripsi
+            'name'       => 'Admin Culinary',
+            'email'      => 'admin@culinary.com',
+            'password'   => bcrypt('admin123'), 
             'role'       => 'admin',
+            'email_verified_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
