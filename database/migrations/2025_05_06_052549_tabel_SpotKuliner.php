@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Spot_kuliner', function (Blueprint $table) {
+        Schema::create('SpotKuliner', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_spot')->id();
-            $table->foreignId('id_user')->constrained('Users')->onDelete('cascade');
-            $table->string('Nama');
-            $table->text('Deskripsi')->nullable();
-            $table->String('Lokasi');
-            $table->enum('Status', ['buka','tutup']);
+            $table->integer('spot_id')->id();
+            $table->foreignId('user_id')->constrained('Users')->onDelete('cascade');
+            $table->string('nama');
+            $table->text('deskripsi')->nullable();
+            $table->String('lokasi');
+            $table->enum('status', ['buka','tutup']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Spot_kuliner');
+        Schema::dropIfExists('SpotKuliner');
     }
 };
