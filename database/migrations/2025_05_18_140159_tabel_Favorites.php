@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Favorites', function (Blueprint $table){
-            $table->foreignId('user_id')->constrained('Users')->onDelete('cascade');
-            $table->foreignId('spot_id')->constrained('SpotKuliner')->onDelete('cascade');
+        Schema::create('favorites', function (Blueprint $table){
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('spot_id')->constrained('spot_kuliners')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
 
             $table->primary(['user_id', 'spot_id']);
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-       Schema::dropIfExists('Favorites'); 
+       Schema::dropIfExists('favorites'); 
     }
 };

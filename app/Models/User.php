@@ -4,11 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\user as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 
-class User extends Authenticatable
+class user extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -28,7 +28,7 @@ class User extends Authenticatable
     // Relasi 1–1: user → profile
     public function profile()
     {
-        return $this->hasOne(UserProfil::class);
+         return $this->hasOne(\App\Models\UserProfile::class);
     }
 
     // Relasi 1–M: vendor → spot

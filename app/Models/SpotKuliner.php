@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SpotKuliner extends Model
 {
     protected $fillable = [
-        'user_id', 'nama', 'deskripsi', 'lokasi', 'status',
+        'user_id', 'nama', 'deskripsi', 'lokasi', 'status', 'gambar',
     ];
 
     public function vendor()
@@ -27,7 +27,7 @@ class SpotKuliner extends Model
     }
     public function user()
 {
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(user::class);
 }
 
 }
