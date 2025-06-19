@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Favorites extends Pivot
 {
-  
-    protected $fillable = [
-        'user_id', 'spot_id',
-    ];
+  public function spot()
+{
+    return $this->belongsTo(SpotKuliner::class);
+}
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

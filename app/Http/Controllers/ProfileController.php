@@ -1,59 +1,54 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserProfile;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    // Menampilkan halaman profil berdasarkan role
     public function show()
     {
         $user = Auth::user();
-        $profile = $user->profile; // relasi one-to-one
-        return view('profile', compact('user', 'profile'));
+
+        return match ($user->role) {
+            'admin' => view('admin.profile', compact('user')),
+            'vendor' => view('vendor.profile', compact('user')),
+            'foodie' => view('foodie.profile', compact('user')),
+            default => abort(403),
+        };
     }
 
-    public function edit()
-    {
-        $user = Auth::user();
-        $profile = $user->profile;
-        return view('profile_edit', compact('user', 'profile'));
+    // Menampilkan form edit profil
+    public function editProfile()
+{
+    $profile = Auth::user()->profile;
+    return view('foodie.edit_profile', compact('profile'));
+}
+
+public function updateProfile(Request $request)
+{
+    $request->validate([
+        'bio' => 'nullable|string|max:500',
+        'deskripsi' => 'nullable|string|max:1000',
+        'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    $user = Auth::user();
+    $profile = $user->profile ?? new \App\Models\UserProfile(['user_id' => $user->id]);
+
+    $profile->bio = $request->bio;
+    $profile->deskripsi = $request->deskripsi;
+
+    if ($request->hasFile('foto')) {
+        $fotoPath = $request->file('foto')->store('profile', 'public');
+        $profile->foto = $fotoPath;
     }
 
-    public function update(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'bio' => 'nullable|string|max:255',
-            'deskripsi' => 'nullable|string',
-        ]);
+    $profile->save();
 
-        $user = Auth::user();
-        $user->name = $request->name;
-        $user->save();
-
-        // Cek apakah user sudah punya profile
-        $profile = $user->profile ?? new UserProfile(['user_id' => $user->id]);
-
-        // Handle upload foto
-        if ($request->hasFile('foto')) {
-            if ($profile->foto && Storage::disk('public')->exists('profile_photos/' . $profile->foto)) {
-                Storage::disk('public')->delete('profile_photos/' . $profile->foto);
-            }
-
-            $file = $request->file('foto');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('profile_photos', $filename, 'public');
-            $profile->foto = $filename;
-        }
-
-        $profile->bio = $request->bio;
-        $profile->deskripsi = $request->deskripsi;
-        $profile->save();
-
-        return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
-    }
+    return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
+}
 }

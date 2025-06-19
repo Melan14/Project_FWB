@@ -38,15 +38,14 @@ class user extends Authenticatable
     }
 
     // Relasi 1–M: foodie → review
-    public function reviews()
-    {
-        return $this->hasMany(Review::class, 'user_id');
-    }
+   public function reviews()
+{
+    return $this->hasMany(Review::class);
+}
     // Relasi M–M: foodie → favorite spots
-    public function favoriteSpots()
+    public function favorites()
     {
-        return $this->belongsToMany(SpotKuliner::class, 'favorites', 'user_id', 'spot_id')
-                    ->withTimestamps();
+        return $this->belongsToMany(SpotKuliner::class, 'favorites', 'user_id', 'spot_id');
     }
     
     protected $hidden = [

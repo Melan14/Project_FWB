@@ -1,32 +1,27 @@
-@extends('layouts.app')
+@extends('layouts.app_vendor')
 
-@section('title', 'Ulasan Pelanggan')
+@section('title', 'Review Spot Kuliner')
 
 @section('content')
-    <h2>Ulasan untuk Tempat Kuliner Saya</h2>
+<div class="container mt-4">
+    <h2>Review untuk: {{ $spot->nama ?? 'Semua Tempat Kuliner' }}</h2>
+    <p class="text-muted">{{ $spot->lokasi ?? '' }}</p>
+    <hr>
 
-    <table class="table table-striped mt-4">
-        <thead class="table-dark">
-            <tr>
-                <th>Tempat Kuliner</th>
-                <th>Foodie</th>
-                <th>Rating</th>
-                <th>Ulasan</th>
-                <th>Tanggal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($reviews as $review)
-                <tr>
-                    <td>{{ $review->spot->nama }}</td>
-                    <td>{{ $review->user->name }}</td>
-                    <td>{{ $review->rating }} ⭐</td>
-                    <td>{{ $review->ulasan }}</td>
-                    <td>{{ $review->created_at->format('d M Y') }}</td>
-                </tr>
-            @empty
-                <tr><td colspan="5">Belum ada ulasan.</td></tr>
-            @endforelse
-        </tbody>
-    </table>
+    @if($reviews->count())
+        @foreach($reviews as $review)
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $review->user->name ?? 'Pengguna' }}</h5>
+                    <h6 class="card-subtitle mb-2 text-warning">⭐ {{ $review->rating }}</h6>
+                    <p class="card-text">{{ $review->komentar }}</p>
+                </div>
+            </div>
+        @endforeach
+    @else
+        <p class="text-muted">Belum ada review untuk tempat ini.</p>
+    @endif
+
+    <a href="{{ route('vendor.spots') }}" class="btn btn-secondary">Kembali</a>
+</div>
 @endsection

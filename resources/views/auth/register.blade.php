@@ -39,4 +39,11 @@
 
         <button class="btn btn-primary w-100">Daftar</button>
     </form>
+
+    {{-- 🔙 Link kembali ke beranda --}}
+    <div class="text-center mt-3">
+        <a href="{{ url('/') }}" style="color: #007bff; text-decoration: underline;">
+            <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Beranda
+        </a>
+    </div>
 @endsection

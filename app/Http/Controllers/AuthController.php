@@ -9,17 +9,13 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Tampilkan form login.
-     */
+    //tampilkan form login
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    /**
-     * Proses login.
-     */
+   //proses login
     public function login(Request $request)
     {
         // Validasi input
@@ -52,12 +48,15 @@ class AuthController extends Controller
         return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
-    /**
-     * Logout user.
-     */
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        return redirect('/login');
-    }
+    //logout user
+public function logout(Request $request)
+{
+    Auth::logout();
+
+    // Invalidate session dan regenerate token untuk keamanan
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/login');
+}
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('spot_id')->constrained('spot_kuliner')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->text('komentar')->nullable;
+            $table->text('komentar')->nullable();
             $table->timestamps();
         });
     }

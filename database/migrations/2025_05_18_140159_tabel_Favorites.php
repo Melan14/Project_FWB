@@ -15,7 +15,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('spot_id')->constrained('spot_kuliners')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
-
             $table->primary(['user_id', 'spot_id']);
         });
 

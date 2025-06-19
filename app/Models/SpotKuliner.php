@@ -20,7 +20,7 @@ class SpotKuliner extends Model
         return $this->hasMany(Review::class, 'spot_id');
     }
 
-    public function favoriters()
+    public function favorites()
     {
         return $this->belongsToMany(User::class, 'favorites', 'spot_id', 'user_id')
                     ->withTimestamps();
