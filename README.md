@@ -22,11 +22,13 @@
 - Mendaftarkan tempat kuliner
 - Mengelola informasi tempat kuliner
 - Melihat ulasan dari foodie
+- Melihat dan mengedit profil
 
 ### 3. Foodie
 - Melihat daftar tempat kuliner
 - Memberikan review dan rating
 - Menyimpan tempat favorit
+- Melihat dan mengedit profil
 
 ---
 
